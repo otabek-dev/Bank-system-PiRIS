@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace BankClient_1
 {
     public partial class AddNewDepositForm : Form
     {
         DataBase dataBase = new DataBase();
+        CultureInfo culture = CultureInfo.InvariantCulture;
         decimal monthlyIncome = 0;
+        byte BillNumberLength = 13;
 
         public AddNewDepositForm()
         {
@@ -24,15 +22,19 @@ namespace BankClient_1
 
         private void button_addNewDeposit_Click(object sender, EventArgs e)
         {
-            Random r = new Random();
-            double result = r.NextDouble();
-            
             dataBase.OpenConnection();
+            Random r = new Random();
 
+            string billNumber = string.Empty;
             var createdDate = string.Join("-", dateTimePicker_startDate.Text.Split('.').Reverse());
             var endDate = string.Join("-", dateTimePicker_endDate.Text.Split('.').Reverse());
 
-            var cmdText = "INSERT INTO deposit(userID, TypeBill, TypeDeposit, Deposit, Procent, Currency, CreatedDate,EndDate, MonthlyIncome, ContractId, BillNumber)" +
+            for (int i = 0; i < BillNumberLength; i++)
+            {
+                billNumber += r.Next(10);
+            }
+
+            var cmdTextPrimary = "INSERT INTO deposit(userID, TypeBill, TypeDeposit, Deposit, Procent, Currency, CreatedDate,EndDate, MonthlyIncome, ContractId, BillNumber)" +
                 $"values ('{textBox_userID.Text}'," +
                 $"N'Основной'," +
                 $"N'{comboBox_typeDeposit.Text}', " +
@@ -43,11 +45,9 @@ namespace BankClient_1
                 $"'{endDate}', " +
                 $"'{monthlyIncome.ToString()}', " +
                 $"{textBox_contractID.Text}, " +
-                $"'{(long)(result * Math.Pow(10, 13))}');";
-            //result* Math.Pow(10, 13)
-            //(long)(result * Math.Pow(10, 13))
+                $"'{billNumber}');";
 
-            var cmdText2 = "INSERT INTO deposit(userID, TypeBill, TypeDeposit, Deposit, Procent, Currency, CreatedDate,EndDate, MonthlyIncome, ContractId, BillNumber)" +
+            var cmdTextPercent = "INSERT INTO deposit(userID, TypeBill, TypeDeposit, Deposit, Procent, Currency, CreatedDate,EndDate, MonthlyIncome, ContractId, BillNumber)" +
                 $"values ('{textBox_userID.Text}'," +
                 $"N'Процентный'," +
                 $"N'{comboBox_typeDeposit.Text}', " +
@@ -58,15 +58,16 @@ namespace BankClient_1
                 $"'{endDate}', " +
                 $"'{monthlyIncome.ToString()}', " +
                 $"{(double.Parse(textBox_contractID.Text) + 1).ToString()}, " +
-                $"'{(long)(result * Math.Pow(10, 13))}');";
+                $"'{billNumber}');";
 
-            SqlCommand command = new SqlCommand(cmdText, dataBase.GetConnection);
-            SqlCommand command2 = new SqlCommand(cmdText2, dataBase.GetConnection);
+            SqlCommand command = new SqlCommand(cmdTextPrimary, dataBase.GetConnection);
+            SqlCommand command2 = new SqlCommand(cmdTextPercent, dataBase.GetConnection);
 
             try
             {
                 command.ExecuteNonQuery();
                 command2.ExecuteNonQuery();
+
                 MessageBox.Show("Успешно!");
                 this.Close();
             }
@@ -82,8 +83,8 @@ namespace BankClient_1
 
             if (comboBox_typeDeposit.SelectedIndex == 0)
             {
-                if (comboBox_rate.SelectedIndex == 0) 
-                { 
+                if (comboBox_rate.SelectedIndex == 0)
+                {
                     textBox_procent.Text = "12";
                     dateTimePicker_endDate.Value = dateTimePicker_endDate.Value.AddMonths(13);
                 }
@@ -96,18 +97,19 @@ namespace BankClient_1
             else if (comboBox_typeDeposit.SelectedIndex == 1)
             {
                 if (comboBox_rate.SelectedIndex == 0)
-                {   
-                    textBox_procent.Text = "14"; 
+                {
+                    textBox_procent.Text = "14";
                     dateTimePicker_endDate.Value = dateTimePicker_endDate.Value.AddMonths(6);
                 }
                 else if (comboBox_rate.SelectedIndex == 1)
                 {
-                    textBox_procent.Text = "9"; 
+                    textBox_procent.Text = "9";
                     dateTimePicker_endDate.Value = dateTimePicker_endDate.Value.AddMonths(9);
                 }
             }
-            monthlyIncome = decimal.Round((decimal.Parse(textBox_deposit.Text) * (decimal.Parse(textBox_procent.Text) / 100)) / 12);
-            textBox_monthlyIncome.Text = int.Parse(monthlyIncome.ToString()).ToString();
+
+            monthlyIncome = (decimal.Parse(textBox_deposit.Text, culture) * (decimal.Parse(textBox_procent.Text, culture) / 100)) / 12;
+            textBox_monthlyIncome.Text = monthlyIncome.ToString(culture);
         }
 
         private void comboBox_typeDeposit_SelectedIndexChanged(object sender, EventArgs e)

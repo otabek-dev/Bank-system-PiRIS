@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace BankClient_1
@@ -12,6 +13,7 @@ namespace BankClient_1
         DataBase dataBase = new DataBase();
         SqlDataAdapter adapter = null;
         DataSet dt = new DataSet();
+        CultureInfo culture = CultureInfo.InvariantCulture;
 
         // Основной класс запускается при старте формы
         public DepositForm(MainForm mainForm)
@@ -66,17 +68,18 @@ namespace BankClient_1
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string typeDeposit = (string)dataGridView1.Rows[e.RowIndex].Cells[3].Value;
-            string typeBill = (string)dataGridView1.Rows[e.RowIndex].Cells["TypeBill"].Value;
+            string BillNumber = (string)dataGridView1.Rows[e.RowIndex].Cells["BillNumber"].Value;
 
             if (typeDeposit == "Отзывной")
             {
                 if (MessageBox.Show("Закрыть депозит?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    var command = new SqlCommand($"DELETE FROM deposit WHERE Id = {dataGridView1.Rows[e.RowIndex].Cells[2].Value}", dataBase.GetConnection);
-                    //var command2 = new SqlCommand($"DELETE FROM deposit WHERE Id = {int.Parse(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString()) - 1}", dataBase.GetConnection);
+                    var command = new SqlCommand($"DELETE FROM deposit WHERE BillNumber = {BillNumber}", dataBase.GetConnection);
+                    var command2 = new SqlCommand($"DELETE FROM deposit WHERE BillNumber = {BillNumber}", dataBase.GetConnection);
 
                     command.ExecuteNonQuery();
-                    //command2.ExecuteNonQuery();
+                    command2.ExecuteNonQuery();
+
                     UpdateDataGridDepositForm();
                 }
             }
@@ -88,33 +91,36 @@ namespace BankClient_1
             string cmd = "SELECT * FROM deposit where TypeBill = N'Процентный'";
             SqlCommand command = new SqlCommand(cmd, dataBase.GetConnection);
             SqlDataReader reader = command.ExecuteReader();
-            var cmdMass = new List<string>();
+            
+            var cmdList = new List<string>();
 
             while (reader.Read())
             {
-                double deposit = double.Parse(reader["deposit"].ToString())
-                    + (double.Parse(reader["MonthlyIncome"].ToString()) / 30);
+                double deposit = double.Parse(reader["deposit"].ToString(), culture)
+                    + (double.Parse(reader["MonthlyIncome"].ToString(), culture) / 30);
 
                 cmd = "UPDATE deposit " +
-                    $"SET deposit = {deposit.ToString().Replace(',', '.')} " +
+                    $"SET deposit = {deposit.ToString(culture)} " +
                     $"WHERE ID = {reader["ID"]}";
-                cmdMass.Add(cmd);
+                cmdList.Add(cmd);
             }
+
             reader.Close();
             
-            for (int i = 0; i < cmdMass.Count; i++)
+            for (int i = 0; i < cmdList.Count; i++)
             {
-                SqlCommand sql = new SqlCommand(cmdMass[i], dataBase.GetConnection);
+                SqlCommand sql = new SqlCommand(cmdList[i], dataBase.GetConnection);
                 sql.ExecuteNonQuery();
             }
+
             UpdateDataGridDepositForm();
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            ChartOfAccounts plc = new ChartOfAccounts();
-            plc.StartPosition = FormStartPosition.CenterParent;
-            plc.ShowDialog();
+            ChartOfAccounts chartOfAcc = new ChartOfAccounts();
+            chartOfAcc.StartPosition = FormStartPosition.CenterParent;
+            chartOfAcc.ShowDialog();
         }
     }
 }
