@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace BankClient_1
 {
-    public partial class PlanCheck : Form
+    public partial class ChartOfAccounts : Form
     {
         DataBase db = new DataBase();
         SqlDataAdapter adapter = null;
         DataSet dt = new DataSet();
 
-        public PlanCheck()
+        public ChartOfAccounts()
         {
             InitializeComponent();
         }

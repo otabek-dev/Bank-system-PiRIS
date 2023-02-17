@@ -11,7 +11,7 @@ namespace BankClient_1
 {
     internal class DataBase
     {
-        SqlConnection sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\Desktop\BankClient-2\SimpleDatabase.mdf;Integrated Security=True");
+        SqlConnection sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\Documents\POIT_3\8-semester\BankClient-2\SimpleDatabase.mdf;Integrated Security=True");
 
         public SqlConnection GetConnection 
         { get => sqlConnection; } 

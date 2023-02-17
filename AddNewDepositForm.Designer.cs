@@ -2,7 +2,7 @@
 
 namespace BankClient_1
 {
-    partial class NewDeposit
+    partial class AddNewDepositForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.

@@ -57,7 +57,7 @@ namespace BankClient_1
         // Кнопка новый депозит
         private void NewDepositButton_Click(object sender, EventArgs e)
         {
-            NewDeposit newDeposit = new NewDeposit();
+            AddNewDepositForm newDeposit = new AddNewDepositForm();
             newDeposit.StartPosition = FormStartPosition.CenterScreen;
             newDeposit.ShowDialog();
             UpdateDataGridDepositForm();
@@ -112,7 +112,7 @@ namespace BankClient_1
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            PlanCheck plc = new PlanCheck();
+            ChartOfAccounts plc = new ChartOfAccounts();
             plc.StartPosition = FormStartPosition.CenterParent;
             plc.ShowDialog();
         }

@@ -38,9 +38,7 @@ namespace BankClient_1
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_updateData = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_addUser = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton_search = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_deposits = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton_autoAddUsers = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -60,13 +58,11 @@ namespace BankClient_1
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton_updateData,
             this.toolStripButton_addUser,
-            this.toolStripButton_search,
             this.toolStripButton_deposits,
-            this.toolStripButton_autoAddUsers,
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1115, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(836, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -75,7 +71,7 @@ namespace BankClient_1
             this.toolStripButton_updateData.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_updateData.Image")));
             this.toolStripButton_updateData.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_updateData.Name = "toolStripButton_updateData";
-            this.toolStripButton_updateData.Size = new System.Drawing.Size(102, 28);
+            this.toolStripButton_updateData.Size = new System.Drawing.Size(85, 24);
             this.toolStripButton_updateData.Text = "Обновить";
             this.toolStripButton_updateData.Click += new System.EventHandler(this.toolStripButton_UpdateButton_Click);
             // 
@@ -84,42 +80,25 @@ namespace BankClient_1
             this.toolStripButton_addUser.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_addUser.Image")));
             this.toolStripButton_addUser.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_addUser.Name = "toolStripButton_addUser";
-            this.toolStripButton_addUser.Size = new System.Drawing.Size(100, 28);
+            this.toolStripButton_addUser.Size = new System.Drawing.Size(83, 24);
             this.toolStripButton_addUser.Text = "Добавить";
             this.toolStripButton_addUser.Click += new System.EventHandler(this.toolStripButton_NewUserAddForm_Click);
-            // 
-            // toolStripButton_search
-            // 
-            this.toolStripButton_search.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_search.Image")));
-            this.toolStripButton_search.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_search.Name = "toolStripButton_search";
-            this.toolStripButton_search.Size = new System.Drawing.Size(76, 28);
-            this.toolStripButton_search.Text = "Поиск";
             // 
             // toolStripButton_deposits
             // 
             this.toolStripButton_deposits.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_deposits.Image")));
             this.toolStripButton_deposits.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_deposits.Name = "toolStripButton_deposits";
-            this.toolStripButton_deposits.Size = new System.Drawing.Size(102, 28);
+            this.toolStripButton_deposits.Size = new System.Drawing.Size(85, 24);
             this.toolStripButton_deposits.Text = "Депозиты";
             this.toolStripButton_deposits.Click += new System.EventHandler(this.toolStripButton_OpenDepositForm_Click);
             // 
-            // toolStripButton_autoAddUsers
-            // 
-            this.toolStripButton_autoAddUsers.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_autoAddUsers.Image")));
-            this.toolStripButton_autoAddUsers.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_autoAddUsers.Name = "toolStripButton_autoAddUsers";
-            this.toolStripButton_autoAddUsers.Size = new System.Drawing.Size(75, 28);
-            this.toolStripButton_autoAddUsers.Text = "Авто...";
-            // 
             // toolStripButton1
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(69, 28);
+            this.toolStripButton1.Size = new System.Drawing.Size(75, 24);
             this.toolStripButton1.Text = "Удалить";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton_DeleteButton_Click_1);
             // 
@@ -151,12 +130,11 @@ namespace BankClient_1
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 31);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 27);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(1115, 523);
+            this.dataGridView1.Size = new System.Drawing.Size(836, 423);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_UpdateUserData_CellDoubleClick);
             // 
@@ -171,28 +149,27 @@ namespace BankClient_1
             this.изменитьToolStripMenuItem,
             this.депозитToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 52);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(129, 48);
             // 
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
             // 
             // депозитToolStripMenuItem
             // 
             this.депозитToolStripMenuItem.Name = "депозитToolStripMenuItem";
-            this.депозитToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+            this.депозитToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.депозитToolStripMenuItem.Text = "Депозит";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 554);
+            this.ClientSize = new System.Drawing.Size(836, 450);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bank system";
@@ -213,9 +190,7 @@ namespace BankClient_1
         private System.Windows.Forms.ToolStripButton toolStripButton_updateData;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource usersBindingSource;
-        private System.Windows.Forms.ToolStripButton toolStripButton_search;
         private System.Windows.Forms.ToolStripButton toolStripButton_addUser;
-        private ToolStripButton toolStripButton_autoAddUsers;
         private ToolStripButton toolStripButton_deposits;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem изменитьToolStripMenuItem;

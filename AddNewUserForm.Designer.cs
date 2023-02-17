@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BankClient_1
 {
-    partial class AddForm
+    partial class AddNewUserForm
     {
         /// <summary>
         /// Required designer variable.

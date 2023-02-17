@@ -1,6 +1,6 @@
 ﻿namespace BankClient_1
 {
-    partial class PlanCheck
+    partial class ChartOfAccounts
     {
         /// <summary>
         /// Required designer variable.

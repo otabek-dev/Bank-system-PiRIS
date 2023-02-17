@@ -15,10 +15,6 @@ namespace BankClient_1
         {
             InitializeComponent();
             this.Text = "Bank system";
-
-            toolStripButton_autoAddUsers.Visible = false;
-            toolStripButton_search.Visible = false;
-            toolStripButton_deposits.Visible = true;
         }
 
         // Метод обновления данных 
@@ -34,6 +30,7 @@ namespace BankClient_1
         {
             UpdateDataGrid();
         }
+
         // Срабатывает при загрузке основной формы 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -51,7 +48,7 @@ namespace BankClient_1
         // Кнопка добавить нового пользователя
         private void toolStripButton_NewUserAddForm_Click(object sender, EventArgs e)
         {
-            AddForm addForm = new AddForm(this);
+            AddNewUserForm addForm = new AddNewUserForm(this);
             addForm.ShowDialog();
         }
 
@@ -59,7 +56,7 @@ namespace BankClient_1
         private void dataGridView_UpdateUserData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int userId = (int)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
-            UpdateForm updateForm = new UpdateForm(this, userId);
+            UpdateUserDataForm updateForm = new UpdateUserDataForm(this, userId);
             updateForm.ShowDialog();
         }
         
@@ -76,13 +73,23 @@ namespace BankClient_1
         {
             string id = Microsoft.VisualBasic.Interaction.InputBox("Введите id пользователя чтобы удалить:");
             
-            if(id != "")
-                if (MessageBox.Show("Вы действительно хотите удалить этого пользователя?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            if(id != string.Empty)
+                if (MessageBox.Show("Вы действительно хотите удалить этого пользователя?", 
+                    "Удаление", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question)
                     == DialogResult.Yes)
                 {
-                    var command = new SqlCommand($"DELETE FROM Users WHERE Id = {id}", databaseCon.GetConnection);
-                    adapter.DeleteCommand = command;
-                    adapter.DeleteCommand.ExecuteNonQuery();
+                    try
+                    {
+                        var command = new SqlCommand($"DELETE FROM Users WHERE Id = {id}", databaseCon.GetConnection);
+                        adapter.DeleteCommand = command;
+                        adapter.DeleteCommand.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
 
             UpdateDataGrid();

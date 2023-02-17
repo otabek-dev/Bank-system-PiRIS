@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace BankClient_1
 {
-    public partial class UpdateForm : Form
+    public partial class UpdateUserDataForm : Form
     {
         MainForm mainForm = null;
         int userId = -1;
@@ -13,7 +13,7 @@ namespace BankClient_1
         SqlDataReader sqlDataReader = null;
         SqlCommand cmd = null;
 
-        public UpdateForm(MainForm mainForm, int userId)
+        public UpdateUserDataForm(MainForm mainForm, int userId)
         {
             InitializeComponent();
             this.mainForm = mainForm;

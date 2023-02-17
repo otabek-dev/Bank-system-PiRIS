@@ -11,19 +11,19 @@ using System.Data.SqlClient;
 
 namespace BankClient_1
 {
-    public partial class AddForm : Form
+    public partial class AddNewUserForm : Form
     {
         MainForm mainForm = null;
 
-        public AddForm(MainForm mainForm)
+        public AddNewUserForm()
+        {
+            InitializeComponent();
+        }
+
+        public AddNewUserForm(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
-        }
-
-        public AddForm()
-        {
-            InitializeComponent();
         }
         private void button1_Click(object sender, EventArgs e)
         {

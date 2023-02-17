@@ -82,11 +82,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddForm.cs">
+    <Compile Include="AddNewUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddForm.Designer.cs">
-      <DependentUpon>AddForm.cs</DependentUpon>
+    <Compile Include="AddNewUserForm.Designer.cs">
+      <DependentUpon>AddNewUserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DataBase.cs" />
     <Compile Include="DepositForm.cs">
@@ -101,28 +101,28 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewDeposit.cs">
+    <Compile Include="AddNewDepositForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewDeposit.Designer.cs">
-      <DependentUpon>NewDeposit.cs</DependentUpon>
+    <Compile Include="AddNewDepositForm.Designer.cs">
+      <DependentUpon>AddNewDepositForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlanCheck.cs">
+    <Compile Include="ChartOfAccounts.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PlanCheck.Designer.cs">
-      <DependentUpon>PlanCheck.cs</DependentUpon>
+    <Compile Include="ChartOfAccounts.Designer.cs">
+      <DependentUpon>ChartOfAccounts.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UpdateForm.cs">
+    <Compile Include="UpdateUserDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UpdateForm.Designer.cs">
-      <DependentUpon>UpdateForm.cs</DependentUpon>
+    <Compile Include="UpdateUserDataForm.Designer.cs">
+      <DependentUpon>UpdateUserDataForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddForm.resx">
-      <DependentUpon>AddForm.cs</DependentUpon>
+    <EmbeddedResource Include="AddNewUserForm.resx">
+      <DependentUpon>AddNewUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DepositForm.resx">
       <DependentUpon>DepositForm.cs</DependentUpon>
@@ -130,11 +130,11 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewDeposit.resx">
-      <DependentUpon>NewDeposit.cs</DependentUpon>
+    <EmbeddedResource Include="AddNewDepositForm.resx">
+      <DependentUpon>AddNewDepositForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlanCheck.resx">
-      <DependentUpon>PlanCheck.cs</DependentUpon>
+    <EmbeddedResource Include="ChartOfAccounts.resx">
+      <DependentUpon>ChartOfAccounts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -145,8 +145,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UpdateForm.resx">
-      <DependentUpon>UpdateForm.cs</DependentUpon>
+    <EmbeddedResource Include="UpdateUserDataForm.resx">
+      <DependentUpon>UpdateUserDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -162,26 +162,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bankDB1.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="bankDB1_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>bankDB1.mdf</DependentUpon>
-    </Content>
     <Content Include="SimpleDatabase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SimpleDatabase_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>SimpleDatabase.mdf</DependentUpon>
-    </Content>
-    <Content Include="testDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="testDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>testDB.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

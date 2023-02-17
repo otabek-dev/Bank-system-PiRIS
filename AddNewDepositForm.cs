@@ -10,12 +10,12 @@ using System.Linq;
 
 namespace BankClient_1
 {
-    public partial class NewDeposit : Form
+    public partial class AddNewDepositForm : Form
     {
         DataBase dataBase = new DataBase();
         decimal monthlyIncome = 0;
 
-        public NewDeposit()
+        public AddNewDepositForm()
         {
             InitializeComponent();
             dateTimePicker_startDate.MinDate = DateTime.Now;
