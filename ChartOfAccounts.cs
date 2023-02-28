@@ -16,26 +16,44 @@ namespace BankClient_1
             InitializeComponent();
         }
 
-        private void UpdateDataGridDepositForm()
+        private void UpdateDataGridCheckOfAccForm()
         {
             dt.Clear();
-            adapter.Fill(dt, "deposit");
-            dataGridView1.DataSource = dt.Tables["deposit"];
+            adapter.Fill(dt, "ChartOfAccounts");
+            dataGridView1.DataSource = dt.Tables["ChartOfAccounts"];
         }
 
         private void PlanCheck_Load(object sender, EventArgs e)
         {
             db.OpenConnection();
 
-            var cmd = "SELECT deposit.BillNumber, Users.FirstName, Users.LastName,deposit.Currency, deposit.Procent " +
-                "FROM Users Right Outer Join deposit " +
-                "ON Users.Id = deposit.userID " +
-                "WHERE TypeBill = N'Основной'";
+            var cmd = "SELECT * FROM ChartOfAccounts";
 
             adapter = new SqlDataAdapter(cmd, db.GetConnection);
-            adapter.Fill(dt, "deposit");
+            
+            UpdateDataGridCheckOfAccForm();
+        }
 
-            dataGridView1.DataSource = dt.Tables["deposit"];
+        private void toolStripButton1_AddNewPlan_Click(object sender, EventArgs e)
+        {
+            AddNewChartForm chartForm = new AddNewChartForm();
+            chartForm.StartPosition = FormStartPosition.CenterParent;
+            chartForm.ShowDialog();
+            UpdateDataGridCheckOfAccForm();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int id = (int)dataGridView1.Rows[e.RowIndex].Cells["Id"].Value;
+
+            if (MessageBox.Show($"Удалить план {dataGridView1.Rows[e.RowIndex].Cells["ChartName"].Value}?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                var command = new SqlCommand($"DELETE FROM ChartOfAccounts WHERE Id = {id}", db.GetConnection);
+
+                command.ExecuteNonQuery();
+
+                UpdateDataGridCheckOfAccForm();
+            }
         }
     }
 }

@@ -19,8 +19,10 @@ namespace BankClient_1
         public DepositForm(MainForm mainForm)
         {
             InitializeComponent();
-            mainForm.Visible = false;
+            
+
             StartPosition = FormStartPosition.CenterScreen;
+            mainForm.Visible = false;
             
             KeyPreview = true;
 
@@ -96,12 +98,15 @@ namespace BankClient_1
 
             while (reader.Read())
             {
-                double deposit = double.Parse(reader["deposit"].ToString(), culture)
-                    + (double.Parse(reader["MonthlyIncome"].ToString(), culture) / 30);
+                double deposit = 
+                    double.Parse(reader["deposit"].ToString())
+                    + (double.Parse(reader["MonthlyIncome"].ToString()) 
+                    / DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
 
                 cmd = "UPDATE deposit " +
                     $"SET deposit = {deposit.ToString(culture)} " +
                     $"WHERE ID = {reader["ID"]}";
+
                 cmdList.Add(cmd);
             }
 

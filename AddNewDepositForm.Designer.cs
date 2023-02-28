@@ -37,20 +37,20 @@ namespace BankClient_1
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker_startDate = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_endDate = new System.Windows.Forms.DateTimePicker();
-            this.comboBox_rate = new System.Windows.Forms.ComboBox();
             this.textBox_monthlyIncome = new System.Windows.Forms.TextBox();
             this.textBox_contractID = new System.Windows.Forms.TextBox();
             this.comboBox_currency = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button_addNewDeposit = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBox4_ChartAcc = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // textBox_userID
@@ -62,10 +62,12 @@ namespace BankClient_1
             // 
             // textBox_deposit
             // 
-            this.textBox_deposit.Location = new System.Drawing.Point(44, 78);
+            this.textBox_deposit.Location = new System.Drawing.Point(44, 209);
             this.textBox_deposit.Name = "textBox_deposit";
             this.textBox_deposit.Size = new System.Drawing.Size(169, 20);
             this.textBox_deposit.TabIndex = 1;
+            this.textBox_deposit.TextChanged += new System.EventHandler(this.textBox_deposit_TextChanged);
+            this.textBox_deposit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_deposit_KeyPress);
             // 
             // comboBox_typeDeposit
             // 
@@ -73,15 +75,14 @@ namespace BankClient_1
             this.comboBox_typeDeposit.Items.AddRange(new object[] {
             "Безотзывной",
             "Отзывной"});
-            this.comboBox_typeDeposit.Location = new System.Drawing.Point(44, 51);
+            this.comboBox_typeDeposit.Location = new System.Drawing.Point(44, 77);
             this.comboBox_typeDeposit.Name = "comboBox_typeDeposit";
             this.comboBox_typeDeposit.Size = new System.Drawing.Size(169, 21);
             this.comboBox_typeDeposit.TabIndex = 2;
-            this.comboBox_typeDeposit.SelectedIndexChanged += new System.EventHandler(this.comboBox_typeDeposit_SelectedIndexChanged);
             // 
             // textBox_procent
             // 
-            this.textBox_procent.Location = new System.Drawing.Point(44, 158);
+            this.textBox_procent.Location = new System.Drawing.Point(44, 131);
             this.textBox_procent.Name = "textBox_procent";
             this.textBox_procent.Size = new System.Drawing.Size(169, 20);
             this.textBox_procent.TabIndex = 3;
@@ -98,7 +99,7 @@ namespace BankClient_1
             // dateTimePicker_startDate
             // 
             this.dateTimePicker_startDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_startDate.Location = new System.Drawing.Point(44, 184);
+            this.dateTimePicker_startDate.Location = new System.Drawing.Point(44, 157);
             this.dateTimePicker_startDate.Name = "dateTimePicker_startDate";
             this.dateTimePicker_startDate.Size = new System.Drawing.Size(169, 20);
             this.dateTimePicker_startDate.TabIndex = 6;
@@ -106,33 +107,23 @@ namespace BankClient_1
             // dateTimePicker_endDate
             // 
             this.dateTimePicker_endDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_endDate.Location = new System.Drawing.Point(44, 210);
+            this.dateTimePicker_endDate.Location = new System.Drawing.Point(44, 183);
             this.dateTimePicker_endDate.Name = "dateTimePicker_endDate";
             this.dateTimePicker_endDate.Size = new System.Drawing.Size(169, 20);
             this.dateTimePicker_endDate.TabIndex = 7;
             // 
-            // comboBox_rate
-            // 
-            this.comboBox_rate.FormattingEnabled = true;
-            this.comboBox_rate.Items.AddRange(new object[] {
-            "12 % Годовых 13 месяцев",
-            "19 % Годовых 19 месяцев"});
-            this.comboBox_rate.Location = new System.Drawing.Point(44, 131);
-            this.comboBox_rate.Name = "comboBox_rate";
-            this.comboBox_rate.Size = new System.Drawing.Size(169, 21);
-            this.comboBox_rate.TabIndex = 8;
-            this.comboBox_rate.SelectedIndexChanged += new System.EventHandler(this.comboBox_rate_SelectedIndexChanged);
-            // 
             // textBox_monthlyIncome
             // 
-            this.textBox_monthlyIncome.Location = new System.Drawing.Point(44, 236);
+            this.textBox_monthlyIncome.BackColor = System.Drawing.Color.AliceBlue;
+            this.textBox_monthlyIncome.Enabled = false;
+            this.textBox_monthlyIncome.Location = new System.Drawing.Point(44, 235);
             this.textBox_monthlyIncome.Name = "textBox_monthlyIncome";
             this.textBox_monthlyIncome.Size = new System.Drawing.Size(169, 20);
             this.textBox_monthlyIncome.TabIndex = 9;
             // 
             // textBox_contractID
             // 
-            this.textBox_contractID.Location = new System.Drawing.Point(44, 262);
+            this.textBox_contractID.Location = new System.Drawing.Point(44, 261);
             this.textBox_contractID.Name = "textBox_contractID";
             this.textBox_contractID.Size = new System.Drawing.Size(169, 20);
             this.textBox_contractID.TabIndex = 10;
@@ -153,7 +144,7 @@ namespace BankClient_1
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(219, 54);
+            this.label2.Location = new System.Drawing.Point(219, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 12;
@@ -162,7 +153,7 @@ namespace BankClient_1
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(219, 81);
+            this.label3.Location = new System.Drawing.Point(219, 212);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 13;
@@ -177,19 +168,10 @@ namespace BankClient_1
             this.label4.TabIndex = 14;
             this.label4.Text = "Валюта";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(219, 134);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 13);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Тариф";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(219, 161);
+            this.label6.Location = new System.Drawing.Point(219, 134);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 16;
@@ -198,7 +180,7 @@ namespace BankClient_1
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(219, 191);
+            this.label7.Location = new System.Drawing.Point(219, 164);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 13);
             this.label7.TabIndex = 17;
@@ -207,7 +189,7 @@ namespace BankClient_1
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(219, 217);
+            this.label8.Location = new System.Drawing.Point(219, 190);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 13);
             this.label8.TabIndex = 18;
@@ -216,7 +198,7 @@ namespace BankClient_1
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(219, 243);
+            this.label9.Location = new System.Drawing.Point(219, 242);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(91, 13);
             this.label9.TabIndex = 19;
@@ -225,7 +207,7 @@ namespace BankClient_1
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(219, 265);
+            this.label10.Location = new System.Drawing.Point(219, 264);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(73, 13);
             this.label10.TabIndex = 20;
@@ -233,31 +215,50 @@ namespace BankClient_1
             // 
             // button_addNewDeposit
             // 
-            this.button_addNewDeposit.Location = new System.Drawing.Point(44, 288);
+            this.button_addNewDeposit.Location = new System.Drawing.Point(44, 289);
             this.button_addNewDeposit.Name = "button_addNewDeposit";
-            this.button_addNewDeposit.Size = new System.Drawing.Size(169, 23);
+            this.button_addNewDeposit.Size = new System.Drawing.Size(169, 46);
             this.button_addNewDeposit.TabIndex = 21;
             this.button_addNewDeposit.Text = "Добавить";
             this.button_addNewDeposit.UseVisualStyleBackColor = true;
             this.button_addNewDeposit.Click += new System.EventHandler(this.button_addNewDeposit_Click);
             // 
-            // NewDeposit
+            // label11
             // 
-            this.ClientSize = new System.Drawing.Size(323, 364);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(219, 54);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(70, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "План счетов";
+            // 
+            // comboBox4_ChartAcc
+            // 
+            this.comboBox4_ChartAcc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4_ChartAcc.FormattingEnabled = true;
+            this.comboBox4_ChartAcc.Location = new System.Drawing.Point(44, 51);
+            this.comboBox4_ChartAcc.Name = "comboBox4_ChartAcc";
+            this.comboBox4_ChartAcc.Size = new System.Drawing.Size(169, 21);
+            this.comboBox4_ChartAcc.TabIndex = 22;
+            this.comboBox4_ChartAcc.SelectionChangeCommitted += new System.EventHandler(this.comboBox4_ChartAcc_SelectionChangeCommitted);
+            // 
+            // AddNewDepositForm
+            // 
+            this.ClientSize = new System.Drawing.Size(333, 358);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.comboBox4_ChartAcc);
             this.Controls.Add(this.button_addNewDeposit);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox_currency);
             this.Controls.Add(this.textBox_contractID);
             this.Controls.Add(this.textBox_monthlyIncome);
-            this.Controls.Add(this.comboBox_rate);
             this.Controls.Add(this.dateTimePicker_endDate);
             this.Controls.Add(this.dateTimePicker_startDate);
             this.Controls.Add(this.label1);
@@ -265,7 +266,10 @@ namespace BankClient_1
             this.Controls.Add(this.comboBox_typeDeposit);
             this.Controls.Add(this.textBox_deposit);
             this.Controls.Add(this.textBox_userID);
-            this.Name = "NewDeposit";
+            this.MaximumSize = new System.Drawing.Size(349, 397);
+            this.MinimumSize = new System.Drawing.Size(349, 397);
+            this.Name = "AddNewDepositForm";
+            this.Load += new System.EventHandler(this.AddNewDepositForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,19 +284,19 @@ namespace BankClient_1
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker_startDate;
         private System.Windows.Forms.DateTimePicker dateTimePicker_endDate;
-        private System.Windows.Forms.ComboBox comboBox_rate;
         private System.Windows.Forms.TextBox textBox_monthlyIncome;
         private System.Windows.Forms.TextBox textBox_contractID;
         private System.Windows.Forms.ComboBox comboBox_currency;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button_addNewDeposit;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox comboBox4_ChartAcc;
     }
 }

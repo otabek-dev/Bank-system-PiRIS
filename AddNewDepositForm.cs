@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BankClient_1.Entities;
+using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -16,13 +18,21 @@ namespace BankClient_1
         public AddNewDepositForm()
         {
             InitializeComponent();
+            comboBox_currency.Enabled = false;
+            comboBox_typeDeposit.Enabled = false;
+            //textBox_monthlyIncome.Enabled = false;
+            textBox_procent.Enabled = false;
+            textBox_contractID.Enabled = false;
+            
+            dateTimePicker_startDate.Enabled = false;
+            dateTimePicker_endDate.Enabled = false;
+
             dateTimePicker_startDate.MinDate = DateTime.Now;
             dateTimePicker_endDate.MinDate = DateTime.Now;
         }
 
         private void button_addNewDeposit_Click(object sender, EventArgs e)
         {
-            dataBase.OpenConnection();
             Random r = new Random();
 
             string billNumber = string.Empty;
@@ -77,54 +87,80 @@ namespace BankClient_1
             }
         }
 
-        private void comboBox_rate_SelectedIndexChanged(object sender, EventArgs e)
+        private void AddNewDepositForm_Load(object sender, EventArgs e)
         {
-            dateTimePicker_endDate.Value = DateTime.Now;
+            dataBase.OpenConnection();
 
-            if (comboBox_typeDeposit.SelectedIndex == 0)
+            string cmd = "SELECT * FROM ChartOfAccounts";
+            SqlCommand command = new SqlCommand(cmd, dataBase.GetConnection);
+            SqlDataReader reader = command.ExecuteReader();
+            List<Chart> chartList = new List<Chart>();
+
+            while (reader.Read())
             {
-                if (comboBox_rate.SelectedIndex == 0)
-                {
-                    textBox_procent.Text = "12";
-                    dateTimePicker_endDate.Value = dateTimePicker_endDate.Value.AddMonths(13);
-                }
-                else if (comboBox_rate.SelectedIndex == 1)
-                {
-                    textBox_procent.Text = "19";
-                    dateTimePicker_endDate.Value = dateTimePicker_endDate.Value.AddMonths(19);
-                }
-            }
-            else if (comboBox_typeDeposit.SelectedIndex == 1)
-            {
-                if (comboBox_rate.SelectedIndex == 0)
-                {
-                    textBox_procent.Text = "14";
-                    dateTimePicker_endDate.Value = dateTimePicker_endDate.Value.AddMonths(6);
-                }
-                else if (comboBox_rate.SelectedIndex == 1)
-                {
-                    textBox_procent.Text = "9";
-                    dateTimePicker_endDate.Value = dateTimePicker_endDate.Value.AddMonths(9);
-                }
+                var chart = new Chart(
+                    typeDeposit: reader["TypeDeposit"].ToString(),
+                    currency: reader["Currency"].ToString(),
+                    percentage: byte.Parse(reader["Percentages"].ToString()),
+                    durationInMonths: byte.Parse(reader["DurationInMonths"].ToString()),
+                    chartName: reader["ChartName"].ToString(),
+                    id: int.Parse(reader["Id"].ToString()));
+
+                chartList.Add(chart);
             }
 
-            monthlyIncome = (decimal.Parse(textBox_deposit.Text, culture) * (decimal.Parse(textBox_procent.Text, culture) / 100)) / 12;
-            textBox_monthlyIncome.Text = monthlyIncome.ToString(culture);
+            comboBox4_ChartAcc.DataSource = chartList;
+            comboBox4_ChartAcc.DisplayMember = "ChartName";
+            comboBox4_ChartAcc.ValueMember = "Id";
+
+            textBox_contractID.Text = ((int)(Math.Pow(10,8) * new Random().NextDouble())).ToString();
+
+            UpdateFieldsWhenChartSelectionChangeCommitted();
         }
 
-        private void comboBox_typeDeposit_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox4_ChartAcc_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (comboBox_typeDeposit.SelectedIndex == 0)
+            UpdateFieldsWhenChartSelectionChangeCommitted();
+        }
+
+        private void UpdateFieldsWhenChartSelectionChangeCommitted()
+        {
+            if (comboBox4_ChartAcc.SelectedItem is Chart)
             {
-                comboBox_rate.Items.Clear();
-                comboBox_rate.Items.Add("12% (процентов) за 13 месяцев");
-                comboBox_rate.Items.Add("19% (процентов) за 24 месяцев");
+                Chart chart = comboBox4_ChartAcc.SelectedItem as Chart;
+
+                comboBox_currency.Text = chart.Currency;
+                comboBox_typeDeposit.Text = chart.TypeDeposit;
+                textBox_procent.Text = chart.Percentage.ToString();
+                
+                dateTimePicker_endDate.Value = DateTime.Now;
+                dateTimePicker_endDate.Value = dateTimePicker_endDate.Value.AddMonths(chart.DurationInMonths);
+
+                textBox_deposit_TextChanged(this, EventArgs.Empty);
             }
-            else if (comboBox_typeDeposit.SelectedIndex == 1)
+        }
+
+        private void textBox_deposit_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox_deposit.Text != string.Empty)
             {
-                comboBox_rate.Items.Clear();
-                comboBox_rate.Items.Add("14% (процентов) за 6 месяцев");
-                comboBox_rate.Items.Add("9% (процентов) за 9 месяцев");
+                monthlyIncome = (decimal.Parse(textBox_deposit.Text, culture) * (decimal.Parse(textBox_procent.Text, culture) / 100)) / 12;
+                textBox_monthlyIncome.Text = monthlyIncome.ToString(culture);
+            }
+            else
+            {
+                textBox_monthlyIncome.Text = string.Empty;
+            }
+        }
+
+        private void textBox_deposit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar))
+            {
+                if (e.KeyChar != (char)Keys.Back)
+                {
+                    e.Handled = true;
+                }
             }
         }
     }
